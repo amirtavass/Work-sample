@@ -1,0 +1,688 @@
+*{box-sizing: border-box;}
+html{
+    --headerHeight:140px;
+    --height:calc(100vh - var(--headerHeight));
+    
+}
+body{
+    direction: rtl;
+    margin: 0px;
+    padding: 0px;
+    font-size: 23px;
+    font-family: myFont;
+    overflow: hidden;
+    height: 100vh;
+}
+@font-face {
+    font-family: myFont;
+    src: url(../fonts/Sans\ a4fran3.woff);
+}
+.modal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(50, 50, 50, 0.9);
+    z-index: 4;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    transition-duration: 0.5s;
+    animation: zoomIn 0.5s;
+    opacity: 0;
+}
+.modal .container{
+    color: white;
+    padding: 10px;
+    border: 1px solid;
+    display: flex;
+    font-size: 0.7em;
+    position: relative;
+    flex-direction: column;
+    transition-duration: 1s;
+
+}
+.modal .container .leftAndRightModal{
+    display: flex;
+}
+.modal .container .closeButton{
+   font-size: 2em;
+   line-height: 15px;
+   cursor: pointer;
+   position: absolute;
+}
+
+.modal .container h4{
+    line-height: 10px;
+    margin-top: 40px;
+}
+.modal .container li{
+    font-size: 0.8em;
+    margin-top: -2px;
+}
+
+.modal .right{
+    padding: 10px;  
+    
+}
+.modal .right .name{
+    display: flex;
+    margin-top: 10px;
+}
+.modal .right .name *{
+   margin: 5px;
+}
+.modal .left img{
+   width: 90%;
+   height: 90%;
+   border-radius: 10px;
+   box-shadow:0px 0px 5px 2px rgba(255,255,255,0.6);
+   
+}
+
+
+
+
+header{
+      padding: 8px;
+     background-color: rgba(0,0,0,1);
+    display: flex;
+     justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    z-index: 2;
+    height: 140px;
+}
+header .leftAndRightHeader{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+header .rightHeader .searchSection{
+display: flex;
+align-items: center;
+color: white;
+font-size: 1.1em;
+}
+header .rightHeader .searchSection .search{
+    cursor: pointer;
+}
+header .rightHeader .searchSection .search input{
+    margin-right: 5px;
+    border-style:none none solid none;
+    background-color: transparent;
+    border-width: 1px;
+    width: 220px;
+    color: white;
+    padding: 5px;
+    font-size: 0.6em;
+    outline: none;
+    transition-duration: 0.5s;
+    display: none;
+    opacity: 0;
+    user-select: none;
+    
+}
+header .rightHeader .searchSection .search input::placeholder{
+transition-duration: 0.5s;
+}
+header .rightHeader .searchSection .search input:focus::placeholder{
+    translate: 0px -120%;
+    color: white;
+}
+header .rightHeader #flag{
+    border-radius: 50%;
+    margin-left: 30px;
+    width:50px;
+}
+header .rightHeader nav{
+    margin-top:8px;
+}
+ nav a{
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    font-size: 0.70em;
+    margin-left: 5px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    padding: 3px;
+    width: 150px;
+    text-align: center;
+    transition-duration: 1s;
+}
+header .rightHeader nav a:hover{
+    border-color: white;
+}
+header .leftHeader .logo{
+    margin-top: 10px;
+    transition-duration: 0.5s;
+}
+header .hambergerMenu{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width:50px;
+    height: 40px;
+    display:none;
+    cursor: pointer;
+}
+header  .hambergerMenu div{
+    height: 17%;
+    background-color: white;
+    transition-duration: 0.5s;
+    border-radius: 5px;
+    
+
+}
+.activeHambergerMenu div:nth-of-type(1){
+    translate: 0px 240%;
+    rotate: 45deg;
+
+}
+.activeHambergerMenu div:nth-of-type(2){
+    opacity: 0;
+
+}
+.activeHambergerMenu div:nth-of-type(3){
+    translate: 0px -240%;
+    rotate: -45deg;
+
+}
+.menuItemActive{
+    border-color: white !important;
+    background-image: linear-gradient(black 50%,#ccc);
+    background-repeat: no-repeat;
+}
+
+
+
+aside{
+    background-color:rgba(0,0,0,0.82);
+    display: flex;
+    flex-direction: column;
+    width:200px;
+    padding: 10px;
+    translate:100% 0px;
+    transition-duration: 0.2s;
+    position: absolute;
+    z-index: 4;
+}
+
+aside a{
+    text-align: center;
+    translate: 100% 0px;
+    transition-duration: 0.2s;
+}
+aside a:hover{
+    color:#666;
+}
+.openAside{
+    translate: 0px 0px;
+}
+.openAside a{
+    translate: 0px 0px;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--height);
+    direction:ltr;
+    overflow: hidden;
+    background-color: black;
+}
+main .backgroundImage{
+    width: 100%;
+    height: var(--height);
+    position: absolute;
+    background-size: cover;
+    filter: blur(13px) grayscale(0.6);
+}
+
+main .section{
+    width: 50%;
+    height:var(--height);
+    display: flex;
+    justify-content: flex-end;
+    align-items:center;
+    position: relative;
+    transition-duration: 1s;
+    background-image: url(../pics/mainLeft.jpg);
+    background-size: cover;
+    filter: blur(3px) grayscale(0.3);
+    z-index: 1;
+   
+    
+}
+main .womanSection{
+    justify-content: flex-start;
+    background-image: url(../pics/mainRight.jpg);
+}
+
+main .buttonBox{
+   display: flex;
+   flex-direction: column;
+   padding:20px 30px;
+   cursor: pointer;
+   transition-duration: 0.5s;
+   user-select: none;
+   z-index: 1;
+
+}
+main .buttonBoxMan{
+background-color: black;
+   color: white;
+   position: absolute;
+   right: 50%;
+}
+main .buttonBoxMan:hover{
+    box-shadow: 0px 0px 7px 0px white ;
+}
+
+main .buttonBoxMan strong:nth-of-type(1){
+    text-align: right;
+    font-size: 1.2em;
+    transition-duration: 0.3s;
+}
+main .buttonBoxMan:hover strong:nth-of-type(1){
+   scale: 1.15;
+   translate: -10px 0px;
+}
+main .buttonBoxMan strong:nth-of-type(2){
+    transition-duration: 0.3s;
+}
+
+main .buttonBoxMan:hover strong:nth-of-type(2){
+   scale: 1.15;
+   translate: 10px 0px;
+}
+
+main .buttonBox strong:nth-of-type(3){
+    font-size: 3.5em;
+    line-height: 45px;
+    rotate: 180deg;
+    text-align: center;
+    margin-bottom: 10px;
+    transition-duration: 0.5s;
+    display: none;
+}
+
+main .buttonBox:hover strong:nth-of-type(3){
+   translate: -10% 0px;
+   text-shadow: 0px 0px 5px gold, 0px 0px 6px gold, 0px 0px 7px gold;
+}
+
+
+main .buttonBoxWoman{
+   background-color: white;
+   color: black;
+   position: absolute;
+   left: 50%;
+  
+   
+}
+main .buttonBoxWoman:hover{
+    box-shadow: 0px 0px 7px 3px black ;
+    
+}
+main .buttonBoxWoman strong:nth-of-type(1){
+    text-align: left;
+    font-size: 1.2em;
+    transition-duration: 0.3s;
+}
+main .buttonBoxWoman:hover strong:nth-of-type(1){
+    scale: 1.15;
+    translate: 10px 0px;
+ }
+ main .buttonBoxWoman strong:nth-of-type(2){
+     transition-duration: 0.3s;
+ }
+ 
+ main .buttonBoxWoman:hover strong:nth-of-type(2){
+    scale: 1.15;
+    translate: -10px 0px;
+ }
+main .buttonBoxWoman strong:nth-of-type(2){
+    text-align: right;
+}
+main .buttonBoxWoman strong:nth-of-type(3){ 
+    rotate: 0deg;
+}
+
+main .buttonBoxWoman:hover strong:nth-of-type(3){
+   translate: 10% 0px;
+   text-shadow: 0px 0px 5px gold, 0px 0px 6px gold, 0px 0px 7px gold;
+}
+
+main .side{
+  height: var(--height);
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  flex-direction: column;
+  position: absolute;
+  transition-duration: 0.5s;
+  z-index: 2;
+  
+}
+main .leftSide{
+    left: 0px;
+}
+main .rightSide{
+    right: 0px;
+}
+main .side img{
+    width:90px;
+    height:20%;
+    margin:20px;
+    border-radius: 5px;
+}
+.womanActive .buttonBoxMan{
+    opacity: 0;
+    right: 0px;
+}
+.womanActive .buttonBoxWoman{
+    left: 0px;
+    top: var(--headerHeight);
+}
+.womanActive .manSection{
+    opacity: 0;
+    translate: -100% 0px;
+}
+.womanActive .womanSection{
+    opacity: 0;
+    translate: -200% 0px;
+    transition-delay: 0.15s;
+    transition-duration: 1.5s;
+}
+.womanActive .leftSide,.manActive .leftSide{
+    opacity: 0;
+    translate: -50% 0px;
+    transition-delay: 0.27s;
+}
+.womanActive .rightSide,.manActive .rightSide{
+    opacity: 0;
+    translate: 50% 0px;
+    transition-delay: 0.27s;
+}
+.womanActive .buttonBoxWoman strong:nth-child(1){
+    display:none;
+    
+    }
+.womanActive .buttonBoxWoman strong:nth-child(3){
+    display: inline-block;
+    
+    }
+
+.womanActive .backgroundImage{
+    background-image: url(../pics/mainRight.jpg);
+    background-size: cover;
+    
+}  
+
+
+
+
+.manActive .buttonBoxWoman{
+    opacity: 0;
+    left:0px;
+}
+.manActive .buttonBoxMan{
+    right: 0px;
+    top: var(--headerHeight);
+}
+.manActive .manSection{
+    opacity: 0;
+    translate: 200% 0px;
+    transition-delay: 0.15s;
+    transition-duration: 1.5s;
+}
+.manActive .womanSection{
+    opacity: 0;
+    translate: 100% 0px;
+}
+.manActive .buttonBoxMan strong:nth-child(1){
+    display: none;
+    }
+
+.manActive .buttonBoxMan strong:nth-child(3){
+display: inline-block;
+}
+
+.manActive .backgroundImage{
+    background-image: url(../pics/mainLeft.jpg);
+    background-size: cover;
+    
+}
+
+
+main .products{
+    position: absolute;
+    width: 60%;
+    height: var(--height);
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    padding-bottom: 30px;
+    flex-wrap: wrap;
+    direction: rtl;
+    overflow: auto;
+
+}
+main .products::-webkit-scrollbar{
+    display: none
+}
+
+
+main .products .product{
+    border: 1px solid white;
+    width: 20%;
+    height:36%;
+    min-width: 200px;
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 18px;
+    animation: zoomIn 0.5s;
+    
+}
+
+main .products .product .cover{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: linear-gradient(rgba(0,0,0,0)0%,rgba(25,25,26,0)60%,rgba(43,42,43,0.7)100%);
+
+}
+main .products .product:hover img{
+    filter: grayscale(3);
+}
+main .products .product img{
+    width: 100%;
+    height: 100%;
+    transition-duration: 0.5s;
+    
+}
+main .products .product .textSection{
+    width: 80%;
+    font-size: 0.55em;
+    text-align: right;
+    position: absolute;
+    bottom: 0px;
+    color: white;
+    border-top: 1px solid white;
+    margin: 8px;
+}
+main .products .product .textSection::after{
+    content:"";
+    width: 0px;
+    height: 1px;
+    position: absolute;
+    top:-1px;
+    left: 0px;
+    background-color: palevioletred;
+    transition-duration: 0.8s;
+}
+.manActive .products .product .textSection::after{
+    background-color: rgba(0,0,255,0.5);
+}
+main .products .product:hover .textSection::after{
+    width: 100%;
+   
+}
+main .products nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main .products nav span{
+    width: 25px;
+    height: 25px;
+    border: 2px white solid ;
+     border-radius: 50%;
+     margin: 10px;
+     background-color: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 0.5s;
+   
+}
+main .products nav span:hover{
+    border-color: rgba(0,0,255,0.3);
+}
+.navItemActive{
+    border-color: white !important;
+    background-image: linear-gradient(black 50%,#ccc);
+    background-repeat: no-repeat;
+    color: white;
+}
+@keyframes zoomIn{
+    0%{
+        scale: 0;
+    }
+    100%{
+        scale: 1;
+    }
+}
+
+@media screen and (max-width:1200px){
+    header .rightHeader nav a{
+        font-size: 0.6em;
+        width:130px;
+        margin-left: 3px;
+    }
+    header .leftHeader .logo{
+        width: 120px;
+    }
+    main .products .product{
+        min-width:160px ;
+        height: 35%;
+
+    }
+   
+   
+    
+}
+@media screen and (max-width:991px){
+    header .hambergerMenu{
+        display: flex;
+    }
+    header .leftHeader .logo{
+        width: 100px;
+    }
+    header .rightHeader nav{
+        display: none;
+    }
+    header{
+        justify-content: space-between;
+    }
+    main .products .product{
+        min-width:170px;
+        height: 50%;
+    }
+   
+    main .buttonBox{
+        font-size: 0.8em;
+    }
+    .modal .container .leftAndRightModal{
+        font-size: 0.85em;
+        height: 50%;
+       
+    }
+    
+   
+    .modal .container .left img{
+        scale: 0.8;
+    }
+    
+}
+@media screen and (max-width:767px){
+    header .leftAndRightHeader{
+        flex-direction: column;
+        flex-flow: column-reverse;
+    }
+    header .rightHeader .searchSection .search input{
+        width:130px;
+
+    }
+    header .rightHeader .searchSection .search{
+        font-size: 0.8em;
+        margin-right: -10px;
+    }
+    main .products .product{
+        min-width:160px ;
+        height: 50%;
+    }
+    main .products{
+        width: 70%;
+        
+    }
+   .womanActive {
+        justify-content: end;
+    }
+    .manActive {
+        justify-content: start;
+    }
+    main .side{
+        display: none;
+    }
+    .modal .container .leftAndRightModal{
+        flex-direction: column-reverse;
+        overflow: auto;
+        height: 100%;
+    }
+    .modal .container {
+       height:100%;
+       padding: 0px;
+
+       
+    }
+    .modal .left{
+        padding: 0px;
+        height:45%;
+
+    }
+    .modal .right{
+       padding: 0px;
+        height:55%;
+    }
+    
+
+    .modal .left img{
+        scale: 0.7;
+    } 
+}
